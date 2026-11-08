@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maze BD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1 id="title" data-i18n="title">Maze BD</h1>
+    <p id="subtitle" data-i18n="subtitle">Find the path through the maze and reach the green flag.</p>
+  </div>
+  <button id="langBtn" class="btn ghost" type="button">&#2476;&#2494;&#2434;&#2482;&#2494;</button>
+</header>
+
+<main class="wrap">
+  <section class="card controls" aria-label="maze controls">
+    <div class="row">
+      <span class="label" data-i18n="size">Size</span>
+      <div id="sizeBtns" class="seg" role="group" aria-label="maze size">
+        <button type="button" data-size="small" class="active">Easy 10&#215;10</button>
+        <button type="button" data-size="medium">Medium 15&#215;15</button>
+        <button type="button" data-size="large">Hard 20&#215;20</button>
+      </div>
+      <button id="newMazeBtn" class="btn primary" type="button" data-i18n="newMaze">New maze</button>
+    </div>
+    <div class="row">
+      <label class="label" for="seedInput" data-i18n="seed">Seed</label>
+      <input id="seedInput" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 42">
+      <button id="applySeedBtn" class="btn" type="button" data-i18n="applySeed">Load seed</button>
+      <span id="seedLabel" class="seed-label">Seed: 0</span>
+      <button id="solutionBtn" class="btn" type="button" data-i18n="showSolution">Show solution</button>
+    </div>
+    <p id="seedMsg" class="msg" role="status"></p>
+  </section>
+
+  <section class="card stats" aria-label="run stats">
+    <div class="stat"><span class="stat-label" data-i18n="moves">Moves</span><span id="movesVal" class="stat-val">0</span></div>
+    <div class="stat"><span class="stat-label" data-i18n="time">Time</span><span id="timeVal" class="stat-val">0:00</span></div>
+    <div class="stat"><span class="stat-label" data-i18n="best">Best</span><span id="bestVal" class="stat-val">&#8212;</span></div>
+  </section>
+
+  <section class="card board-card">
+    <div id="board" class="board"></div>
+    <p id="statusMsg" class="hint" role="status"></p>
+    <div class="dpad" aria-label="move controls">
+      <span></span>
+      <button id="dUp" class="btn dpad-btn" type="button" aria-label="Move up">&#9650;</button>
+      <span></span>
+      <button id="dLeft" class="btn dpad-btn" type="button" aria-label="Move left">&#9664;</button>
+      <button id="dDown" class="btn dpad-btn" type="button" aria-label="Move down">&#9660;</button>
+      <button id="dRight" class="btn dpad-btn" type="button" aria-label="Move right">&#9654;</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="bestTimes">Best times</h2>
+    <table class="best-table">
+      <tbody id="bestList"></tbody>
+    </table>
+    <p id="noBest" class="muted" data-i18n="noBestYet">No best time yet &#8212; solve a maze to set one!</p>
+    <div class="row data-row">
+      <button id="exportBtn" class="btn" type="button" data-i18n="exportBtn">Export</button>
+      <button id="importBtn" class="btn" type="button" data-i18n="importBtn">Import</button>
+      <button id="eraseBtn" class="btn danger" type="button" data-i18n="eraseBtn">Erase all</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </div>
+    <div id="eraseBox" class="erase-box" hidden>
+      <label for="eraseInput" data-i18n="erasePrompt">Type DELETE to erase all best times:</label>
+      <input id="eraseInput" type="text" autocomplete="off" placeholder="DELETE">
+      <button id="eraseConfirm" class="btn danger" type="button">DELETE</button>
+      <button id="eraseCancel" class="btn" type="button">Cancel</button>
+    </div>
+    <p id="dataMsg" class="msg" role="status"></p>
+  </section>
+
+  <footer>
+    <p id="disclaimer" class="muted" data-i18n="disclaimer">Offline game &#8212; nothing leaves your device. Best times are stored only in this browser.</p>
+  </footer>
+</main>
+
+<div id="winOverlay" class="overlay" hidden>
+  <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+    <h2 id="winTitle">You solved the maze!</h2>
+    <p id="winStats" class="win-stats"></p>
+    <p id="winBest" class="win-best"></p>
+    <div class="row center">
+      <button id="playAgainBtn" class="btn primary" type="button" data-i18n="playAgain">Play again</button>
+      <button id="nextMazeBtn" class="btn" type="button" data-i18n="nextMaze">Next maze</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/logic.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
